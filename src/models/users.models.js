@@ -8,12 +8,12 @@ const Users = db.define("users", {
     primaryKey: true,
     allowNull: false,
   },
-  firstName: {
+  surname: {
     type: DataTypes.STRING,
     allowNull: false,
     field: "first_name",
   },
-  lastName: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
     field: "last_name",
@@ -30,37 +30,29 @@ const Users = db.define("users", {
     type: DataTypes.STRING,
     allowNull: false
   },
+  age: {
+    type: DataTypes.INTEGER, // +52 
+    allowNull: false
+  },
+  profile_img: {
+    type: DataTypes.STRING,
+    field: 'profile_img',
+    validate: {
+      isUrl: true
+    }
+  },
   phone: {
-    type: DataTypes.STRING, // +52 
-    allowNull: false,
-    unique: true
-  },
-  birthday: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
-  },
-  gender: {
-    type: DataTypes.STRING,
-  },
-  role: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'normal'
+    validate: {
+      max: 16
+    }
   },
-  country: {
-    type: DataTypes.STRING,
-  },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: 'active'
-  },
-  isVerified: {
+  isActive: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    field: 'is_verified',
-    defaultValue: false
-  },
+    defaultValue: true
+  }
 });
 
 module.exports = Users
