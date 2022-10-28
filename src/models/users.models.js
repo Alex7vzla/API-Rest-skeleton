@@ -34,7 +34,7 @@ const Users = db.define("users", {
     type: DataTypes.INTEGER, // +52 
     allowNull: false
   },
-  profile_img: {
+  profileImg: {
     type: DataTypes.STRING,
     field: 'profile_img',
     validate: {
