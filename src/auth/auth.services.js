@@ -1,12 +1,9 @@
 const jwt = require('jsonwebtoken');
 const { jwtSecret } = require('../config');
-
-const {loginUser} = require('./auth.controller')
+const {loginUser} = require('./auth.controller');
 
 const login = (req, res) => {
     const {email, password} = req.body;
-
-    //! if(!email || !password) return res.status(400).json({message: 'Missing Data'})
 
     if(email && password){
         loginUser(email, password)
@@ -33,8 +30,6 @@ const login = (req, res) => {
         res.status(400).json({message: 'Missing Data'})
     }
 }
-
-
 
 module.exports = {
     login
