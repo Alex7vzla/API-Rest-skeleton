@@ -10,16 +10,6 @@ const getAllMessages = async (conversationId) => {
     return data;
 };
 
-const getMessagesById = async (id) => {
-    const data = await Messages.findOne({
-        where: {
-            id: id,
-            created_by: id
-        }
-    })
-    return data;
-};
-
 const postMessage = async (data) => {
     const newConversation = await Messages.create({
         id: uuid.v4(),
@@ -41,7 +31,6 @@ const deleteMessage = async (id) => {
 
 module.exports = {
     getAllMessages,
-    getMessagesById,
     postMessage,
     deleteMessage
 };
