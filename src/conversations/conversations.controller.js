@@ -1,20 +1,15 @@
 const uuid = require('uuid');
 const Conversations = require('../models/conversations.models');
 
-const getAllConversations = async (id) => {
-    const data = await Conversations.findAll({
-        where: {
-            created_by: id
-        }
-    });
+const getAllConversations = async () => {
+    const data = await Conversations.findAll()
     return data;
 };
 
 const getConversationById = async (id) => {
     const data = await Conversations.findOne({
         where: {
-            id: id,
-            created_by: id
+            id
         }
     })
     return data;
@@ -24,10 +19,19 @@ const postConversation = async (data) => {
     const newConversation = await Conversations.create({
         id: uuid.v4(),
         title: data.title,
-        img_url: data.img_url,
-        created_by: data.created_by
+        imgUrl: data.imgUrl,
+        userId: data.userId
     })
     return newConversation;
+};
+
+const updateConversation = async (id, data) => {
+    const data = await Conversations.update(data, {
+        where: {
+            id
+        }
+    })
+    return data;
 };
 
 const deleteConversation = async (id) => {
@@ -44,5 +48,6 @@ module.exports = {
     getAllConversations,
     getConversationById,
     postConversation,
+    updateConversation,
     deleteConversation
 };
