@@ -17,6 +17,7 @@ const getConversationById = async (id) => {
             created_by: id
         }
     })
+    return data;
 };
 
 const postConversation = async (data) => {
