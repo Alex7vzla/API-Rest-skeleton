@@ -14,7 +14,11 @@ const getConversationById = async (req, res) => {
     const id = req.params.id;
     conversationsController.getConversationById(id)
         .then((data) => {
-            res.status(200).json(data);
+            if(data){
+                res.status(200).json(data);
+            }else {
+                res.status(404).json({mmessage: "Invalid ID"})
+            }
         })
         .catch((err) => {
             res.status(404).json({ message: err.message });
@@ -22,11 +26,12 @@ const getConversationById = async (req, res) => {
 };
 
 const createdConversation = async (req, res) => {
-    const {content} = req.body;
-    if(content){
-        conversationsController.postConversation({
-            content
-        })
+    
+    const {title, imageUrl} = req.body;
+    const userId = req.user.id;
+
+    if(title && imageUrl){
+        conversationsController.postConversation({title, imageUrl, userId})
         .then((data) => {
             res.status(200).json(data);
         })
@@ -35,12 +40,30 @@ const createdConversation = async (req, res) => {
         });
     }else{
         res.status(400).json({
-            message: "Do not send a void message",
+            message: "Missing data",
             fields: {
-            content: "Ex: lorem ipsum"
-            },
-        });
+                title: "string",
+                imageUrl: "string"
+            }
+        })
     }
+};
+
+const patchConversation = async (req, res) => {
+    const id = req.params.id;
+    const {title, imgUrl} = req.body;
+
+    conversationsController.updateConversation(id, {title, imgUrl})
+        .then(data => {
+            if(data[0]){
+                res.status(200).json({
+                    message: `Conversation with ID: ${id}, edited successfully`
+                })
+            }else {
+                res.status(400).json({message: "Invalid ID"})
+            }
+        })
+        .catch(err => {res.status(400).json({message: err.message})})
 };
 
 const deleteConversation = (req, res) => {
@@ -62,5 +85,6 @@ module.exports = {
     getAllConversations,
     getConversationById,
     createdConversation,
+    patchConversation,
     deleteConversation
 }
