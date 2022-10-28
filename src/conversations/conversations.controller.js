@@ -20,7 +20,7 @@ const postConversation = async (data) => {
         id: uuid.v4(),
         title: data.title,
         imgUrl: data.imgUrl,
-        userId: data.userId
+        createdBy: data.createdBy
     })
     return newConversation;
 };
