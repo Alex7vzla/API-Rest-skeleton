@@ -52,7 +52,12 @@ const Users = db.define("users", {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: true
-  }
+  },
+  role: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "user"
+  },
 });
 
 module.exports = Users
