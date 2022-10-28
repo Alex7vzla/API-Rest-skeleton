@@ -1,8 +1,6 @@
-//? Dependencies
-const uuid = require('uuid')
-
-const Users = require('../models/users.models')
-const { hashPassword } = require('../utils/crypto')
+const uuid = require('uuid');
+const Users = require('../models/users.models');
+const { hashPassword } = require('../utils/crypto');
 
 const getAllUsers = async () => {
     const data = await Users.findAll({
@@ -11,7 +9,7 @@ const getAllUsers = async () => {
         }
     })
     return data
-}
+};
 
 const getUserById = async (id) => {
     const data = await Users.findOne({
@@ -20,24 +18,23 @@ const getUserById = async (id) => {
             status: 'active'
         }
     })
-    return data
-}
-
+    return data;
+};
 
 const createUser = async (data) => {
     const newUser = await Users.create({
         id: uuid.v4(),
-        firstName: data.firstName,
-        lastName: data.lastName,
+        surname: data.surname,
+        name: data.name,
         email: data.email,
         password: hashPassword(data.password),
+        age: data.age,
+        profileImg: data.profileImg,
         phone: data.phone,
-        birthday: data.birthday,
-        gender: data.gender,
-        country: data.country
+        isActive: data.isActive
     })
-    return newUser
-}
+    return newUser;
+};
 
 const updateUser = async (id, data) => {
     const result = await Users.update(data, {
@@ -45,8 +42,8 @@ const updateUser = async (id, data) => {
             id
         }
     })
-    return result
-}
+    return result;
+};
 
 const deleteUser = async (id) => {
     const data = await Users.destroy({
@@ -57,19 +54,18 @@ const deleteUser = async (id) => {
     return data
 }
 
-//? Un servidor contiene la API
-//? Otro servidor contiene la Base de Datos
+//-----------------------------------------
 
 const getUserByEmail = async(email) => {
-    //? SELECT * FROM users where email = 'sahid.kick@academlo.com'//
+    
     const data = await Users.findOne({
         where: {
             email: email,
             status: 'active'
         }
     })
-    return data
-}
+    return data;
+};
 
 module.exports = {
     createUser,
