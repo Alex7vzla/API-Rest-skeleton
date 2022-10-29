@@ -1,6 +1,7 @@
 const Users = require('./users.models')
 const Conversations = require('./conversations.models');
 const Messages = require('./messages.models');
+const Participants = require('./participants.models');
 
 const initModels = () => {
     Users.hasMany(Conversations)

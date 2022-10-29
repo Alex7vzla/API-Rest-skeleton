@@ -10,13 +10,11 @@ const Users = db.define("users", {
   },
   surname: {
     type: DataTypes.STRING,
-    allowNull: false,
-    field: "first_name",
+    allowNull: false
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
-    field: "last_name",
+    allowNull: false
   },
   email: {
     type: DataTypes.STRING,
@@ -31,7 +29,7 @@ const Users = db.define("users", {
     allowNull: false
   },
   age: {
-    type: DataTypes.INTEGER, // +52 
+    type: DataTypes.INTEGER, 
     allowNull: false
   },
   profileImg: {
@@ -43,15 +41,13 @@ const Users = db.define("users", {
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      max: 16
-    }
+    allowNull: false
   },
   isActive: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: true
+    defaultValue: true,
+    field: 'is_active'
   },
   role: {
     type: DataTypes.STRING,

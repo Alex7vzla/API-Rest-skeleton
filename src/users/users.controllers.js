@@ -5,9 +5,9 @@ const { hashPassword } = require('../utils/crypto');
 const getAllUsers = async () => {
     const data = await Users.findAll({
         where: {
-            status: 'active'
+            isActive: true
         }
-    })
+    });
     return data
 };
 
@@ -15,7 +15,7 @@ const getUserById = async (id) => {
     const data = await Users.findOne({
         where: {
             id: id,
-            status: 'active'
+            isActive: true
         }
     })
     return data;
@@ -30,8 +30,7 @@ const createUser = async (data) => {
         password: hashPassword(data.password),
         age: data.age,
         profileImg: data.profileImg,
-        phone: data.phone,
-        isActive: data.isActive
+        phone: data.phone
     })
     return newUser;
 };
@@ -61,7 +60,7 @@ const getUserByEmail = async(email) => {
     const data = await Users.findOne({
         where: {
             email: email,
-            status: 'active'
+            isActive: true
         }
     })
     return data;
